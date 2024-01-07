@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 50px 0; /* Ajout d'un peu d'espace en haut et en bas du container */
+        }
+        header {
+            background: #50b3a2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        /* Styles pour la forme de connexion */
+        form {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 30px; /* Espace en dessus du formulaire */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+        input[type="email"], input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px; /* Espace en dessous des champs de saisie */
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #50b3a2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #429188;
+        }
+        .account-action {
+            text-align: center; /* Centre le contenu */
+            margin-top: 20px; /* Espace au-dessus du texte */
+        }
+        .account-action button {
+            background-color: #e8491d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        .account-action button:hover {
+            background-color: #c53b1d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <h1><span class="highlight">Ma Cave</span> à Vin</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Connexion</h2>
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="{{ url_for('login') }}">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <input type="submit" value="Connexion">
+            </div>
+        </form>
+        <div class="account-action">
+            <p>Vous n'avez pas de compte?</p>
+            <button onclick="location.href='{{ url_for('creer_compte') }}'">Créez-en un ici</button>
+        </div>
+    </div>
+</body>
+</html>

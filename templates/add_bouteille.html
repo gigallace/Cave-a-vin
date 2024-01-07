@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter une Bouteille</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 50px 0; /* Ajout d'espace en haut et en bas du container */
+        }
+        form {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 30px; /* Espace au-dessus du formulaire */
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+        select, input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px; /* Espace en dessous des champs de saisie */
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #50b3a2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #429188;
+        }
+        button {
+            background-color: #e8491d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 16px;
+            display: block; /* Centre le bouton dans le conteneur */
+            width: 50%;
+            margin: 20px auto; /* Ajoute de la marge en haut et en bas et centre horizontalement */
+        }
+        button:hover {
+            background-color: #c53b1d;
+        }
+        #resume {
+            width: 50%;
+            margin: 20px auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #resume p {
+            margin: 10px 0;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="{{ url_for('submit_bouteille') }}" method="POST">
+            <!-- Liste déroulante pour les étagères -->
+            <label for="etagere">Choisissez une étagère:</label>
+            <select id="etagere" name="etagere_id">
+                {% for etagere in etageres %}
+                    <option value="{{ etagere.id_etagere }}">{{ etagere.numero }}</option>
+                {% endfor %}
+            </select>
+        
+            <!-- Liste déroulante pour les templates de bouteilles -->
+            <label for="template">Choisissez un template de bouteille:</label>
+            <select id="template" name="template_id">
+                {% for template in templates %}
+                    <option value="{{ template.id_template }}" 
+                            data-type="{{ template.type_bouteille }}"
+                            data-annee="{{ template.annee }}"
+                            data-note="{{ template.note_moyenne }}"
+                            data-prix="{{ template.prix }}">
+                        {{ template.nom }} - {{ template.region }}
+                    </option>
+                {% endfor %}
+            </select>
+
+        
+            <input type="submit" value="Valider">
+        </form>
+    
+
+
+        <button onclick="window.location.href='{{ url_for('dashboard') }}'">Retour au tableau de bord</button>
+        
+        <div id="resume">
+            <p id="resume-etagere">Étagère choisie : Aucune</p>
+            <p id="resume-template">Template de bouteille choisi : Aucun</p>
+        </div>
+    </div>  
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestionnaire pour la liste déroulante des étagères
+            document.getElementById('etagere').addEventListener('change', function() {
+                var etagereChoisie = this.options[this.selectedIndex].text;
+                document.getElementById('resume-etagere').textContent = 'Étagère choisie : ' + etagereChoisie;
+            });
+    
+            // Gestionnaire pour la liste déroulante des templates de bouteilles
+            document.getElementById('template').addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                var templateChoisi = selectedOption.text;
+                var typeBouteille = selectedOption.getAttribute('data-type');
+                var annee = selectedOption.getAttribute('data-annee');
+                var note = selectedOption.getAttribute('data-note');
+                var prix = selectedOption.getAttribute('data-prix');
+    
+                document.getElementById('resume-template').textContent = 
+                    'Template de bouteille choisi : ' + templateChoisi +
+                    ', Type : ' + typeBouteille +
+                    ', Année : ' + annee +
+                    ', Note Moyenne : ' + note +
+                    ', Prix : ' + prix;
+            });
+        });
+    </script>
+</body>
+</html>
