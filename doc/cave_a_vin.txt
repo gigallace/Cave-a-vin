@@ -1,0 +1,90 @@
+
+
+# Création d'un utilisateur
+utilisateur1 = Utilisateur(identifiant="1", nom="Maxime Giambi", email="mg@machin.com", mot_de_passe="password123")
+utilisateur2 = Utilisateur(identifiant="2", nom="Bastin Broisin", email="bb@machin.com", mot_de_passe="password456")
+
+# L'utilisateur crée une cave
+cave1 = utilisateur1.creer_cave(nom_cave="Ma Première Cave")
+cave2 = utilisateur2.creer_cave(nom_cave="Ma Cave bien remplis")
+
+# Création d'un template de bouteille
+template_pinot_noir = TemplateBouteille(
+    domaine="Domaine de la Romanée-Conti",
+    nom="Pinot Noir",
+    type_bouteille="Rouge",
+    annee=2010,
+    region="Bourgogne",
+    note_moyenne=9.5,
+    photo="lien_vers_photo",
+    prix=200.0
+)
+
+template_chianti = TemplateBouteille(
+    domaine="Chianti Classico",
+    nom="chianti",
+    type_bouteille="Rouge",
+    annee=2020,
+    region="Toscane",
+    note_moyenne=7.5,
+    photo="lien_vers_photo",
+    prix=50.0
+)
+
+template_cote_rotie = TemplateBouteille(
+    domaine="DOMAINE STÉPHANE OGIER",
+    nom="Côte-Rôtie",
+    type_bouteille="Rouge",
+    annee=2015,
+    region="cote du rhone",
+    note_moyenne=8.0,
+    photo="lien_vers_photo",
+    prix=120.0
+)
+
+# Ajout d'une étagère à la cave
+etagere1 = cave1.ajouter_etagere(numero="E1", region="Bourgogne", emplacements=50)
+etagere2 = cave1.ajouter_etagere(numero="E2", region="cote du rhone", emplacements=50)
+
+etagere3 = cave2.ajouter_etagere(numero="E1", region="Toscane", emplacements=50)
+etagere4 = cave2.ajouter_etagere(numero="E2", region="cote du rhone", emplacements=50)
+
+# Ajout d'une bouteille à l'étagère
+bouteille1 = etagere1.ajouter_bouteille(template_bouteille=template_pinot_noir, note_perso=9.0)
+bouteille2 = etagere2.ajouter_bouteille(template_bouteille=template_cote_rotie, note_perso=5.0)
+
+bouteille3 = etagere1.ajouter_bouteille(template_bouteille=template_cote_rotie, note_perso=10.0)
+bouteille4 = etagere2.ajouter_bouteille(template_bouteille=template_chianti, note_perso=6.0)
+
+# Affichage des informations de la bouteille
+print(f"Bouteille ajoutée: {bouteille1.template_bouteille.nom}, {bouteille1.template_bouteille.annee}")
+print(f"Domaine: {bouteille1.template_bouteille.domaine}")
+print(f"Note personnelle: {bouteille1.note_perso}")
+
+print(f"Bouteille ajoutée: {bouteille2.template_bouteille.nom}, {bouteille2.template_bouteille.annee}")
+print(f"Domaine: {bouteille2.template_bouteille.domaine}")
+print(f"Note personnelle: {bouteille2.note_perso}")
+
+print(f"Bouteille ajoutée: {bouteille3.template_bouteille.nom}, {bouteille3.template_bouteille.annee}")
+print(f"Domaine: {bouteille3.template_bouteille.domaine}")
+print(f"Note personnelle: {bouteille3.note_perso}")
+
+print(f"Bouteille ajoutée: {bouteille4.template_bouteille.nom}, {bouteille4.template_bouteille.annee}")
+print(f"Domaine: {bouteille4.template_bouteille.domaine}")
+print(f"Note personnelle: {bouteille4.note_perso}")
+
+# L'utilisateur note la bouteille
+bouteille1.noter_bouteille(note=8.5)
+bouteille2.noter_bouteille(note=5.0)
+bouteille3.noter_bouteille(note=1.0)
+bouteille4.noter_bouteille(note=3.0)
+
+# Affichage de la nouvelle note personnelle
+print(f"Nouvelle note personnelle: {bouteille1.note_perso}")
+print(f"Nouvelle note personnelle: {bouteille2.note_perso}")
+print(f"Nouvelle note personnelle: {bouteille3.note_perso}")
+print(f"Nouvelle note personnelle: {bouteille4.note_perso}")
+
+print(f"Nouvelle note moyenne: {template_pinot_noir.note_moyenne}")
+print(f"Nouvelle note moyenne: {template_cote_rotie.note_moyenne}")
+print(f"Nouvelle note moyenne: {template_chianti.note_moyenne}")
